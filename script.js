@@ -12,19 +12,15 @@ function sleep(ms) {
 }
 
 async function UpdatePage(url) {
-    fetch(url)
-        .then((res) => res.text())
-        .then((text) => {
-            const parser = new DOMParser();
-            const new_document = parser.parseFromString(text, 'text/html');
-
-            const main = new_document.getElementById('main');
-            document.getElementById('content').innerHTML = null;
-            document.getElementById('content').appendChild(main);
-            document
-                .getElementById('second_style')
-                .setAttribute('href', `${url}/style.css`);
-        });
+    console.log(url.pathname.slice(1));
+    const main = document.getElementById(url.pathname.slice(1));
+    document.getElementById('content').innerHTML = null;
+    document
+        .getElementById('content')
+        .appendChild(main.content.cloneNode(true));
+    document
+        .getElementById('second_style')
+        .setAttribute('href', `${url}/style.css`);
 }
 
 if ('navigation' in window) {
